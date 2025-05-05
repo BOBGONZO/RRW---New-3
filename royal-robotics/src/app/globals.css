@@ -1,0 +1,281 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 72.2% 50.6%;
+    --radius: 0.5rem;
+
+    /* Royal Robotics Theme Colors */
+    --royal-red: 0 80% 25%;
+    --royal-dark-red: 0 80% 15%;
+    --royal-black: 0 0% 0%;
+    --royal-white: 0 0% 100%;
+
+    /* Donation tier colors */
+    --ruby: 0 100% 40%;
+    --diamond: 195 100% 45%;
+    --gold: 45 100% 45%;
+    --silver: 0 0% 75%;
+    --bronze: 30 70% 40%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 72.2% 50.6%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Add background logo to all pages - now handled in layout.tsx */
+  /* body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/royals-logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: -1;
+  } */
+}
+
+@layer components {
+  .royal-gradient {
+    @apply bg-gradient-to-b from-black via-[#800404] to-[#080000];
+  }
+
+  .donation-ruby {
+    background: linear-gradient(135deg, rgba(255, 0, 20, 0.8) 0%, rgba(200, 0, 20, 0.9) 100%);
+    box-shadow: 0 10px 15px rgba(200, 0, 20, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .donation-diamond {
+    background: linear-gradient(135deg, rgba(25, 118, 210, 0.7) 0%, rgba(13, 71, 161, 0.8) 100%);
+    box-shadow: 0 10px 15px rgba(13, 71, 161, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .donation-gold {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.7) 0%, rgba(255, 143, 0, 0.8) 100%);
+    box-shadow: 0 10px 15px rgba(255, 143, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .donation-silver {
+    background: linear-gradient(135deg, rgba(158, 158, 158, 0.7) 0%, rgba(97, 97, 97, 0.8) 100%);
+    box-shadow: 0 10px 15px rgba(97, 97, 97, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .donation-bronze {
+    background: linear-gradient(135deg, rgba(141, 110, 99, 0.7) 0%, rgba(93, 64, 55, 0.8) 100%);
+    box-shadow: 0 10px 15px rgba(93, 64, 55, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .donation-tier-dollar {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 0.15rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes surfing {
+  0%, 100% {
+    transform: translateY(0) rotate(0.5deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-0.5deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0.5deg);
+  }
+  75% {
+    transform: translateY(8px) rotate(-0.5deg);
+  }
+}
+
+@keyframes logoFade {
+  0%, 100% {
+    opacity: 0.09;
+  }
+  50% {
+    opacity: 0.17;
+  }
+}
+
+.squiggly-line {
+  animation: wave 3s infinite ease-in-out;
+}
+
+.surfing-container {
+  animation: surfing 8s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-up {
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s infinite ease-in-out;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 5s infinite linear;
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, 
+      rgba(255, 255, 255, 0) 0%, 
+      rgba(255, 255, 255, 0.05) 25%, 
+      rgba(255, 255, 255, 0.1) 50%, 
+      rgba(255, 255, 255, 0.05) 75%, 
+      rgba(255, 255, 255, 0) 100%);
+  }
+  
+  .animate-logo-fade {
+    animation: logoFade 20s infinite ease-in-out;
+  }
+}
