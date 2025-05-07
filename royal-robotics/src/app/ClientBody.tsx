@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Toaster } from "sonner";
 
 export function ClientBody({
   children,
@@ -13,5 +14,10 @@ export function ClientBody({
     document.body.className = "antialiased";
   }, []);
 
-  return <div className="antialiased">{children}</div>;
+  return (
+    <div className="antialiased">
+      <Toaster richColors position="top-right" />
+      {children}
+    </div>
+  );
 }

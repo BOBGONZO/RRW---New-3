@@ -1,14 +1,82 @@
 "use client";
 
+import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle, XCircle } from "lucide-react";
+import { toast } from "sonner";
 
 export default function ContactPage() {
+  // Form state
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<null | "success" | "error">(null);
+
+  // Handle input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setFormStatus(null);
+
+    // Validate form
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.subject || !formData.message) {
+      toast.error("Please fill in all fields");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Submit to our API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+      
+      // Show success
+      setFormStatus("success");
+      toast.success("Your message has been sent successfully! We'll get back to you soon.");
+      
+      // Reset form after successful submission
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormStatus("error");
+      toast.error("There was a problem sending your message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <main className="royal-gradient min-h-screen">
       <Navbar />
@@ -29,7 +97,7 @@ export default function ContactPage() {
                 <CardContent className="p-8">
                   <h2 className="text-2xl font-bold text-white mb-6">Send Us a Message</h2>
 
-                  <form className="space-y-6">
+                  <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <label htmlFor="firstName" className="text-white">First Name</label>
@@ -37,6 +105,9 @@ export default function ContactPage() {
                           id="firstName"
                           placeholder="Enter your first name"
                           className="bg-white/10 border-red-900/20 text-white placeholder:text-gray-400"
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          required
                         />
                       </div>
 
@@ -46,6 +117,9 @@ export default function ContactPage() {
                           id="lastName"
                           placeholder="Enter your last name"
                           className="bg-white/10 border-red-900/20 text-white placeholder:text-gray-400"
+                          value={formData.lastName}
+                          onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -57,6 +131,9 @@ export default function ContactPage() {
                         type="email"
                         placeholder="Enter your email address"
                         className="bg-white/10 border-red-900/20 text-white placeholder:text-gray-400"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
 
@@ -66,6 +143,9 @@ export default function ContactPage() {
                         id="subject"
                         placeholder="What is this regarding?"
                         className="bg-white/10 border-red-900/20 text-white placeholder:text-gray-400"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
 
@@ -75,11 +155,41 @@ export default function ContactPage() {
                         id="message"
                         placeholder="Enter your message here..."
                         className="bg-white/10 border-red-900/20 text-white placeholder:text-gray-400 min-h-[150px]"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
                       />
                     </div>
+                    
+                    {formStatus === "success" && (
+                      <div className="bg-green-900/30 border border-green-600/30 p-3 rounded-md flex items-center gap-2">
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                        <span className="text-green-100">Message sent successfully!</span>
+                      </div>
+                    )}
+                    
+                    {formStatus === "error" && (
+                      <div className="bg-red-900/30 border border-red-600/30 p-3 rounded-md flex items-center gap-2">
+                        <XCircle className="h-5 w-5 text-red-500" />
+                        <span className="text-red-100">Failed to send message. Please try again.</span>
+                      </div>
+                    )}
 
-                    <Button className="bg-red-600 hover:bg-red-700 w-full">
-                      Submit <Send className="ml-2 h-4 w-4" />
+                    <Button 
+                      type="submit" 
+                      className="bg-red-600 hover:bg-red-700 w-full" 
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="animate-pulse">Sending...</span>
+                          <div className="ml-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                        </>
+                      ) : (
+                        <>
+                          Submit <Send className="ml-2 h-4 w-4" />
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>

@@ -204,13 +204,13 @@ export default function AboutPage() {
 
               <Card className="bg-gray-900/30 border-red-900/20">
                 <CardContent className="p-4">
-                  <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+                  <div className="flex flex-col md:flex-row items-start md:items-stretch gap-4 side-by-side-container">
                     <img
                       src="/images/robot-competition.jpg"
                       alt="Crescendo Robot Design"
-                      className="rounded-lg w-full md:w-24 h-auto aspect-video object-cover"
+                      className="rounded-lg w-full md:w-24 h-auto md:h-full object-cover side-by-side-image"
                     />
-                    <div>
+                    <div className="side-by-side-content">
                       <h4 className="text-white font-medium">Crescendo Robot Design 2024</h4>
                       <p className="text-red-500">The Bishop ♝</p>
                       <p className="text-gray-400 text-sm mt-1">
@@ -223,17 +223,17 @@ export default function AboutPage() {
 
               <Card className="bg-gray-900/30 border-red-900/20">
                 <CardContent className="p-4">
-                  <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+                  <div className="flex flex-col md:flex-row items-start md:items-stretch gap-4 side-by-side-container">
                     <img
-                      src="/images/first-goals.jpg"
-                      alt="Reefscape Robot Design"
-                      className="rounded-lg w-full md:w-24 h-auto aspect-video object-cover"
+                      src="/images/robot-competition.jpg"
+                      alt="Previous Competition Robot"
+                      className="rounded-lg w-full md:w-24 h-auto md:h-full object-cover side-by-side-image"
                     />
-                    <div>
-                      <h4 className="text-white font-medium">Reefscape Robot Industrial Design 2025</h4>
-                      <p className="text-red-500">The Reef Ripper</p>
+                    <div className="side-by-side-content">
+                      <h4 className="text-white font-medium">Previous Competition Robot</h4>
+                      <p className="text-red-500">The Knight</p>
                       <p className="text-gray-400 text-sm mt-1">
-                        Our latest robot design featuring innovative ball manipulation systems.
+                        Our practice robot with advanced control systems and custom-built components.
                       </p>
                     </div>
                   </div>

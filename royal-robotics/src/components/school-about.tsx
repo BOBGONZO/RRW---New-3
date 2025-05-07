@@ -13,7 +13,7 @@ export function SchoolAbout() {
           <div className="animate-slide-in-left">
             <div className="relative overflow-hidden rounded-lg border border-red-900/30 shadow-xl transform hover:scale-[1.01] transition-transform duration-700 surfing-container">
               <img
-                src="/images/school.jpg"
+                src="images/home_page/industrial_design_award.jpg"
                 alt="Bishop Reding Catholic Secondary School"
                 className="w-full h-auto"
                 onError={(e) => {
