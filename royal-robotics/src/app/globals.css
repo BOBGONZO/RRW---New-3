@@ -65,9 +65,19 @@
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
   }
-  body {
+  html, body {
     @apply bg-background text-foreground;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+    background-color: #000;
   }
   
   /* Add background logo to all pages - now handled in layout.tsx */
@@ -149,7 +159,7 @@
 
 @keyframes slideInLeft {
   from {
-    transform: translateX(-50px);
+    transform: translateX(-100px);
     opacity: 0;
   }
   to {
@@ -160,7 +170,7 @@
 
 @keyframes slideInRight {
   from {
-    transform: translateX(50px);
+    transform: translateX(100px);
     opacity: 0;
   }
   to {
@@ -257,7 +267,7 @@
   }
 
   .animate-slide-in-up {
-    animation: slideInUp 0.6s ease-out forwards;
+    animation: slideInUp 0.8s ease-out forwards;
   }
 
   .animate-pulse-slow {
@@ -278,4 +288,105 @@
   .animate-logo-fade {
     animation: logoFade 20s infinite ease-in-out;
   }
+}
+
+/* Team Carousel Transitions */
+.carousel-container {
+  position: relative;
+  transition: transform 0.6s ease;
+}
+
+.carousel-container.transitioning {
+  transition: transform 0.6s ease;
+}
+
+.carousel-container.slide-left {
+  animation: slideCarouselLeft 0.6s ease-in-out;
+}
+
+.carousel-container.slide-right {
+  animation: slideCarouselRight 0.6s ease-in-out;
+}
+
+@keyframes slideCarouselLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(-10%);
+    opacity: 0.5;
+  }
+  51% {
+    transform: translateX(10%);
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideCarouselRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateX(10%);
+    opacity: 0.5;
+  }
+  51% {
+    transform: translateX(-10%);
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Side-by-side image and text alignment classes */
+.side-by-side-container {
+  display: flex;
+  align-items: center;
+}
+
+.side-by-side-image {
+  object-fit: cover;
+}
+
+.side-by-side-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensures images in grid layouts maintain consistent height */
+.equal-height-grid {
+  display: grid;
+  align-items: center;
+}
+
+/* Navigation image container matching text height */
+.nav-feature-image-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-feature-image-container img {
+  flex: 1;
+  object-fit: cover;
 }

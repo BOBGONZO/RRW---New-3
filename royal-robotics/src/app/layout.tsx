@@ -40,7 +40,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="96x96" href="/apple-icon.png" />
       </head>
-      <body className="min-h-screen bg-black text-white antialiased">
+      <body className="min-h-screen h-screen bg-black text-white antialiased overflow-x-hidden overflow-y-auto w-full">
         {/* Background Logo - Direct embed with base64 */}
         <div className="fixed inset-0 z-[-2] pointer-events-none">
           <div
